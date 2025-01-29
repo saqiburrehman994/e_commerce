@@ -1,0 +1,29 @@
+<div class="container mt-5">
+  <div class="card shadow-lg p-4">
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <% if @product.image.attached? %>
+          <%= image_tag @product.image, class: "img-fluid rounded", alt: @product.name, style: "max-height: 300px; object-fit: cover;" %>
+        <% end %>
+      </div>
+
+      <div class="col-md-6">
+        <h1 class="mb-3"><%= @product.name %></h1>
+        <p class="text-muted"><%= @product.description %></p>
+        <h4 class="text-primary">Price: <%= number_to_currency(@product.price) %></h4>
+        <p><strong>Stock Available:</strong> <%= @product.stock_quantity %></p>
+
+        <div class="mt-4">
+          <%= link_to 'Edit', edit_product_path(@product), class: "btn btn-warning me-2" %>
+           <%= link_to 'Delete',product_path(@product),
+                 data: {
+                     turbo_method: :delete,
+                     turbo_confirm: "Are you sure to delete ?"
+                 },
+               class: "btn btn-danger me-2" %>
+          <%= link_to 'Back to Products', products_path, class: "btn btn-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
