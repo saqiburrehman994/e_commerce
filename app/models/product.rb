@@ -1,3 +1,3 @@
 class Product < ApplicationRecord
-  belongs_to :user, -> { where manager: true }
+  belongs_to :user, optional: true
 end

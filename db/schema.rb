@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_29_103201) do
     t.text "description"
     t.decimal "price"
     t.integer "stock_quantity"
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_products_on_user_id"

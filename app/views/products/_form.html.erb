@@ -1,0 +1,22 @@
+<%= form_with model: product do |form| %>
+     <div>
+        <%= form.label :name, class:"form-label"%>
+        <%= form.text_field :name, class:"form-control"%>
+     </div>
+
+     <div>
+         <%= form.label :description, class: "form-label"%>
+         <%= form.text_field :description, class: "form-control"%>
+     </div>
+     <div>
+         <%= form.label :price, class: "form-label"%>
+         <%= form.number_field :price, class: "form-control"%>
+     </div>
+     <div>
+         <%= form.label :stock_quantity, class: "form-label"%>
+         <%= form.number_field :description, class: "form-control"%>
+     </div>
+     <div>
+         <%= form.submit %>
+     </div>
+<% end %>
