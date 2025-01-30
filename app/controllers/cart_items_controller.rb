@@ -12,10 +12,13 @@ class CartItemsController < ApplicationController
     end
     redirect_to cart_path
   end
+  def edit
+    @cart_item = @cart.cart_items.find(params[:id])
+  end
 
   def update
     cart_item = @cart.cart_items.find(params[:id])
-    if cart_item.update(quantity: params[:quantity])
+    if cart_item.update(quantity: params[:cart_item][:quantity])
       flash[:notice] = "Cart Updated."
     else
       flash[:notice] = "Could not update cart."

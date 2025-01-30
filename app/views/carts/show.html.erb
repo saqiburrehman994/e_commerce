@@ -12,6 +12,7 @@
               <p class="text-success mb-0"><strong>Price:</strong> <%= number_to_currency(item.product.price) %></p>
             </div>
             <div class="col-md-6 text-md-end">
+              <%= link_to "Edit", edit_cart_item_path(item),class: "btn btn-outline-warning btn-sm"%>
               <%= link_to "Remove", cart_item_path(item),
                 data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?" },
                 class: "btn btn-outline-danger btn-sm"
@@ -20,7 +21,7 @@
           </div>
         <% end %>
         <div class="text-center mt-4">
-          <%= link_to "Proceed to CheckOut", checkout_orders_path, class:"btn btn-success btn-lg w-100"%>
+          <%= button_to "Proceed to CheckOut", checkout_orders_path, class:"btn btn-success btn-lg w-100"%>
         </div>
       </div>
     </div>
