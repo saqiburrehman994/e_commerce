@@ -22,6 +22,11 @@
                  },
                class: "btn btn-danger btn-sm" %>
             </div>
+            <div class="mt-2">
+              <!-- Add to Cart Button -->
+              <%= button_to 'Add to Cart', cart_items_path(product_id: product.id),
+                   method: :post, class: "btn btn-success btn-sm w-100" %>
+            </div>
           </div>
         </div>
       </div>

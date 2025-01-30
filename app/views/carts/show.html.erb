@@ -1,0 +1,31 @@
+<h2 class="text-center mb-4">Your Cart</h2>
+
+<% if @cart_items.any? %>
+  <div class="container">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <% @cart_items.each do |item| %>
+          <div class="row align-items-center border-bottom py-3">
+            <div class="col-md-6">
+              <h5 class="mb-0"><%= item.product.name %></h5>
+              <p class="text-muted mb-1">Quantity: <%= item.quantity %></p>
+              <p class="text-success mb-0"><strong>Price:</strong> <%= number_to_currency(item.product.price) %></p>
+            </div>
+            <div class="col-md-6 text-md-end">
+              <%= link_to "Remove", cart_item_path(item),
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete?" },
+                class: "btn btn-outline-danger btn-sm"
+              %>
+            </div>
+          </div>
+        <% end %>
+        <div class="text-center mt-4">
+          <%= link_to "Proceed to CheckOut", checkout_orders_path, class:"btn btn-success btn-lg w-100"%>
+        </div>
+      </div>
+    </div>
+    <%= link_to "Add More Products",products_path, class:"btn btn-primary btn-sm mt-4"%>
+  </div>
+<% else %>
+  <p class="text-center text-muted fs-5">Your cart is empty.</p>
+<% end %>

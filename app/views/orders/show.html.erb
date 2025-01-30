@@ -1,0 +1,45 @@
+<h2 class="text-center mb-4">Order Details</h2>
+
+<div class="container">
+  <div class="card shadow-sm p-4">
+    <h4 class="mb-3">Order Summary</h4>
+
+    <p><strong>Status:</strong>
+      <% if @order.status == "pending" %>
+        <span class="badge bg-warning text-dark">Pending</span>
+      <% elsif @order.status == "completed" %>
+        <span class="badge bg-success">Completed</span>
+      <% else %>
+        <span class="badge bg-secondary"><%= @order.status.capitalize %></span>
+      <% end %>
+    </p>
+
+    <p class="text-success"><strong>Total:</strong> <%= number_to_currency(@order.total) %></p>
+
+    <h4 class="mt-4">Items in Order</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="table-dark text-center">
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_items.each do |item| %>
+            <tr class="text-center align-middle">
+              <td><strong><%= item.product.name %></strong></td>
+              <td><%= item.quantity %></td>
+              <td class="text-success"><%= number_to_currency(item.price_at_purchase) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-center mt-4">
+      <%= link_to "Back to Orders", orders_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>

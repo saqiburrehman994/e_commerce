@@ -3,8 +3,8 @@ class CartItemsController < ApplicationController
 
   def create
     product = Product.find(params[:product_id])
-    cart_item = @cart.cart_items.find_or_initialize_by( product: product )
-    cart_item.quantity += 1
+    cart_item = @cart.cart_items.find_or_initialize_by(product: product)
+    cart_item.quantity = (cart_item.quantity || 0) + 1
     if cart_item.save
       flash[:notice] = "Product added to cart."
     else
