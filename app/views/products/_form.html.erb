@@ -52,8 +52,8 @@
     </div>
 
     <div class="mb-3">
-        <%= form.label :parent_id, "Category Name", class: "form-label" %>
-        <%= form.collection_select :parent_id,Category.order(:name),:id,:name %>
+        <%= form.label :category_id, "Category Name", class: "form-label" %>
+        <%= form.collection_select :category_id,Category.order(:name),:id,:name %>
     </div>
 
     <div class="text-center">
