@@ -12,7 +12,7 @@
             <p class="card-text"><%= truncate(product.description, length: 100) %></p>
             <p><strong>Price:</strong> <%= number_to_currency(product.price) %></p>
             <p><strong>Stock:</strong> <%= product.stock_quantity %></p>
-            <p><strong>Category:</strong> <%= product.category.name %></p>
+            <p><strong>Category:</strong> <%= product.category&.name %></p>
             <div class="d-flex justify-content-between">
               <% if current_user.manager?%>
                   <%= link_to 'View', product_path(product), class: "btn btn-primary btn-sm" %>
