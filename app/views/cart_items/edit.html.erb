@@ -1,0 +1,19 @@
+<h2 class="text-center mb-4">Edit Cart Item</h2>
+
+<div class="container">
+  <div class="card shadow-sm p-4">
+    <h4 class="mb-3">Update Quantity</h4>
+
+    <%= form_with model: @cart_item do |f| %>
+      <div class="mb-3">
+        <%= f.label :quantity, "Quantity", class: "form-label" %>
+        <%= f.number_field :quantity, class: "form-control" %>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <%= link_to "Cancel", cart_path, class: "btn btn-secondary" %>
+        <%= f.submit  class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
