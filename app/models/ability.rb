@@ -5,6 +5,6 @@ class Ability
 
   def initialize(user)
      return unless user.manager?
-     can [ :create,:update,:destroy ], Product
+     can [ :create, :update, :destroy ], Product
   end
 end
