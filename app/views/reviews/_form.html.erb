@@ -1,0 +1,11 @@
+<%= form_with model: [ product, review] do |f| %>
+    <div class="mb-3">
+      <%= f.label :rating, "Rating (1-5)", class: "form-label" %>
+      <%= f.select :rating, options_for_select([1, 2, 3, 4, 5], selected: @review.rating), {}, class: "form-select w-50" %>
+    </div>
+    <div class="mb-3">
+      <%= f.label :comment, "Comment", class: "form-label" %>
+      <%= f.text_area :comment, rows: 3, class: "form-control" %>
+    </div>
+    <%= f.submit class: "btn btn-success" %>
+  <% end %>

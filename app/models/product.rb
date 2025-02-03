@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many :orders, through: :order_items
   has_many :cart_items, dependent: :destroy
   has_many :carts, through: :cart_items
+  has_many :reviews, dependent: :destroy
   belongs_to :category
 
   validates :name, presence: true

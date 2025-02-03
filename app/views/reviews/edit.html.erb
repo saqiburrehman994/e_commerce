@@ -1,0 +1,5 @@
+
+<h1>Edit Review</h1>
+<%= turbo_frame_tag dom_id(@review) do %>
+  <%= render partial: "form", locals: { review: @review , product: @product} %>
+<% end %>
