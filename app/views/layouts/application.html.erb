@@ -20,6 +20,11 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <% if current_user&.manager? %>
+      <li class="nav-item">
+        <%= link_to "Manage Orders", manage_orders_path, class: "nav-link btn btn-outline-primary" %>
+      </li>
+    <% end %>
     <%= yield %>
   </body>
 </html>

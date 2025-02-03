@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   resources :orders, only: [ :index, :show ] do
     collection do
       post :checkout
+      get  :manage
+    end
+    member do
+      patch :update_status
     end
   end
   resources :order_items, only: [ :index ]

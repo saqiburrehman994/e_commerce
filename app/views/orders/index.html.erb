@@ -1,5 +1,4 @@
 <h2 class="text-center mb-4">Your Orders</h2>
-
 <% if @orders.any? %>
   <div class="container">
     <div class="table-responsive">
@@ -17,10 +16,10 @@
             <tr class="text-center align-middle">
               <td><strong><%= order.id %></strong></td>
               <td>
-                <% if order.status == "pending" %>
+                <% if order.pending? %>
                   <span class="badge bg-warning text-dark">Pending</span>
-                <% elsif order.status == "completed" %>
-                  <span class="badge bg-success">Completed</span>
+                <% elsif order.delivered?%>
+                  <span class="badge bg-success">Delivered</span>
                 <% else %>
                   <span class="badge bg-secondary"><%= order.status.capitalize %></span>
                 <% end %>

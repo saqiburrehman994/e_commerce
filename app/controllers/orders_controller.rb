@@ -2,6 +2,30 @@ class OrdersController < ApplicationController
   def index
     @orders = current_user.orders.order(created_at: :desc)
   end
+
+  def manage
+    if can? :manage, Order
+      @orders = Order.order(created_at: :desc)
+    else
+      head :forbidden
+      flash[:alert] = "You are not authorized to manage orders."
+    end
+  end
+
+  def update_status
+    @order = Order.find(params[:id])
+    if can? :update_status, @order
+        if @order.update(status: params[:status])
+          flash[:notice] = "Order status updated successfully."
+        else
+          flash[:alert] = "Failed to update order status."
+        end
+    else
+        flash[:alert] = "You are not authorized to perform this task."
+        redirect_to manage_orders_path and return
+    end
+    redirect_to manage_orders_path
+  end
   def show
     @order = current_user.orders.find(params[:id])
   end
@@ -24,7 +48,7 @@ class OrdersController < ApplicationController
       end
     end
 
-    order = Order.create(user: current_user, status: "pending", total: 0,payment_status:"unpaid")
+    order = Order.create(user: current_user, status: "pending", total: 0, payment_status:"unpaid")
 
     cart.cart_items.each do |cart_item|
       product = cart_item.product
@@ -42,6 +66,7 @@ class OrdersController < ApplicationController
     if payment_result[:success]
       cart.cart_items.destroy_all
       flash[:notice] = "Order placed successfully.#{payment_result[:message]}"
+      current_user.payment_detail.destroy
       redirect_to order_path(order)
     else
       order.order_items.each do |order_item|
@@ -51,7 +76,6 @@ class OrdersController < ApplicationController
       flash[:alert] = payment_result[:message]
       redirect_to cart_path
     end
-    current_user.payment_detail.destroy
   end
 
 end

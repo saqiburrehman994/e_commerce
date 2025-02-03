@@ -5,12 +5,12 @@
     <h4 class="mb-3">Order Summary</h4>
 
     <p><strong>Status:</strong>
-      <% if @order.status == "pending" %>
+      <% if @order.pending?%>
         <span class="badge bg-warning text-dark">Pending</span>
-      <% elsif @order.status == "completed" %>
-        <span class="badge bg-success">Completed</span>
+      <% elsif @order.delivered?%>
+        <span class="badge bg-success">Delivered</span>
       <% else %>
-        <span class="badge bg-secondary"><%= @order.status.capitalize %></span>
+        <span class="badge bg-secondary"><%= @order.status%></span>
       <% end %>
     </p>
 
