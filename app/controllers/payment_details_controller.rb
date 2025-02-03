@@ -15,6 +15,6 @@ class PaymentDetailsController < ApplicationController
   private
 
   def payment_detail_params
-    params.require(:payment_detail).permit(:card_number,:expiry_date,:cvv)
+    params.require(:payment_detail).permit(:card_number, :expiry_date, :cvv)
   end
 end

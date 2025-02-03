@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
       end
     end
 
-    order = Order.create(user: current_user, status: "pending", total: 0, payment_status:"unpaid")
+    order = Order.create(user: current_user, status: "pending", total: 0, payment_status: "unpaid")
 
     cart.cart_items.each do |cart_item|
       product = cart_item.product
@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
     end
 
     order.update(total: order.order_items.sum { |item| item.quantity * item.price_at_purchase })
-    payment_service = PaymentService.new(order,params[:card_details])
+    payment_service = PaymentService.new(order, params[:card_details])
     payment_result = payment_service.process_payment
     if payment_result[:success]
       cart.cart_items.destroy_all
@@ -70,12 +70,11 @@ class OrdersController < ApplicationController
       redirect_to order_path(order)
     else
       order.order_items.each do |order_item|
-        order_item.product.increment!(:stock_quantity,order_item.quantity)
+        order_item.product.increment!(:stock_quantity, order_item.quantity)
       end
       order.update(status: "cancelled")
       flash[:alert] = payment_result[:message]
       redirect_to cart_path
     end
   end
-
 end

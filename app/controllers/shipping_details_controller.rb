@@ -1,5 +1,4 @@
 class ShippingDetailsController < ApplicationController
-
   def new
     @shipping_detail = ShippingDetail.new(user: current_user)
   end
@@ -29,6 +28,6 @@ class ShippingDetailsController < ApplicationController
   private
 
   def shipping_detail_params
-    params.require(:shipping_detail).permit(:name,:address,:phone_number)
+    params.require(:shipping_detail).permit(:name, :address, :phone_number)
   end
 end
