@@ -9,23 +9,49 @@ class OrdersController < ApplicationController
   def checkout
     cart = current_user.cart
     return redirect_to cart_path, alert: "Your cart is empty!" if cart.cart_items.empty?
+
     unless current_user.shipping_detail
-      return redirect_to new_shipping_detail_path
+      return redirect_to new_shipping_detail_path, alert: "Please enter your shipping details before checkout."
     end
-    order = Order.create(user: current_user, status: "pending", total: 0)
+
+    unless current_user.payment_detail
+      return redirect_to new_payment_detail_path, alert: "Please enter your payment details before checkout."
+    end
+
     cart.cart_items.each do |cart_item|
+      if cart_item.product.stock_quantity < cart_item.quantity
+        return redirect_to cart_path, alert: "Stock is insufficient for #{cart_item.product.name}."
+      end
+    end
+
+    order = Order.create(user: current_user, status: "pending", total: 0,payment_status:"unpaid")
+
+    cart.cart_items.each do |cart_item|
+      product = cart_item.product
       order.order_items.create(
-        product: cart_item.product,
+        product: product,
         quantity: cart_item.quantity,
-        price_at_purchase: cart_item.product.price
+        price_at_purchase: product.price
       )
+      product.decrement!(:stock_quantity, cart_item.quantity)
     end
 
     order.update(total: order.order_items.sum { |item| item.quantity * item.price_at_purchase })
-    cart.cart_items.destroy_all
-
-    flash[:notice] = "Order placed successfully."
-    redirect_to order_path(order)
+    payment_service = PaymentService.new(order,params[:card_details])
+    payment_result = payment_service.process_payment
+    if payment_result[:success]
+      cart.cart_items.destroy_all
+      flash[:notice] = "Order placed successfully.#{payment_result[:message]}"
+      redirect_to order_path(order)
+    else
+      order.order_items.each do |order_item|
+        order_item.product.increment!(:stock_quantity,order_item.quantity)
+      end
+      order.update(status: "cancelled")
+      flash[:alert] = payment_result[:message]
+      redirect_to cart_path
+    end
+    current_user.payment_detail.destroy
   end
 
 end

@@ -22,4 +22,5 @@ Rails.application.routes.draw do
   end
   resources :order_items, only: [ :index ]
   resources :shipping_details, only: [:new,:create,:update,:edit]
+  resources :payment_details, only: [:new,:create,:destroy]
 end

@@ -4,11 +4,15 @@ class CartItemsController < ApplicationController
   def create
     product = Product.find(params[:product_id])
     cart_item = @cart.cart_items.find_or_initialize_by(product: product)
-    cart_item.quantity = (cart_item.quantity || 0) + 1
-    if cart_item.save
-      flash[:notice] = "Product added to cart."
+    if product.stock_quantity > 0
+      cart_item.quantity = cart_item.quantity.to_i + 1
+      if cart_item.save
+        flash[:notice] = "Product added to cart."
+      else
+        flash[:alert] = "Product could not be added."
+      end
     else
-      falsh[:alert] = "Could not add product to cart."
+      flash[:notice] = "Stock is Insufficient."
     end
     redirect_to cart_path
   end
@@ -32,8 +36,6 @@ class CartItemsController < ApplicationController
     flash[:notice] = "Item removed from cart."
     redirect_to cart_path
   end
-
-
 
   private
 
