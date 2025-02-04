@@ -1,12 +1,35 @@
 <h1 class="text-center mb-4">Products</h1>
 
+
 <div class="container mb-4">
-  <%= form_tag products_path, method: :get, class: "mb-3" do %>
-    <div class="input-group">
+  <%= form_tag products_path, method: :get, class: "row g-3 align-items-end" do %>
+    <div class="col-md-4">
+      <%= label_tag :search_by_name, "Product Name", class: "form-label" %>
       <%= text_field_tag :search_by_name, params[:search_by_name],
           class: "form-control",
-          placeholder: "Search for products by name..." %>
-      <%= submit_tag "Search",class: "btn btn-outline-secondary"%>
+          placeholder: "Search for products..." %>
+    </div>
+
+    <div class="col-md-3">
+      <%= label_tag :category_id, "Category", class: "form-label" %>
+      <%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]),
+          prompt: "All Categories", class: "form-select" %>
+    </div>
+
+    <div class="col-md-2">
+      <%= label_tag :min_price, "Min Price", class: "form-label" %>
+      <%= number_field_tag :min_price, params[:min_price],
+          class: "form-control", placeholder: "0.00", step: "0.01" %>
+    </div>
+
+    <div class="col-md-2">
+      <%= label_tag :max_price, "Max Price", class: "form-label" %>
+      <%= number_field_tag :max_price, params[:max_price],
+          class: "form-control", placeholder: "0.00", step: "0.01" %>
+    </div>
+
+    <div class="col-md-1">
+      <%= submit_tag "Apply", class: "btn btn-outline-primary w-100" %>
     </div>
   <% end %>
 </div>
@@ -38,7 +61,6 @@
             </div>
             <% unless current_user&.manager? %>
               <div class="mt-2">
-                <!-- Add to Cart Button -->
                 <%= button_to 'Add to Cart', cart_items_path(product_id: product.id),
                       method: :post, class: "btn btn-success btn-sm w-100" %>
               </div>

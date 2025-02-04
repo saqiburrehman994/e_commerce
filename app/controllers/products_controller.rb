@@ -1,10 +1,17 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [ :edit, :update, :destroy ]
   def index
+    @products = Product.all
     if params[:search_by_name].present?
       @products = Product.where("name ILIKE ?", "%#{params[:search_by_name]}%")
-    else
-      @products = Product.all
+    end
+    if params[:category].present?
+      @products = @products.by_category(params[:category])
+    end
+    if params[:min_price].present? && params[:max_price].present?
+      min_price = params[:min_price].to_f
+      max_price = params[:max_price].to_f
+      @products = @products.by_price_range(min_price,max_price)
     end
   end
 
