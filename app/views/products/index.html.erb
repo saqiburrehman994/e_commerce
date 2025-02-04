@@ -1,4 +1,16 @@
 <h1 class="text-center mb-4">Products</h1>
+
+<div class="container mb-4">
+  <%= form_tag products_path, method: :get, class: "mb-3" do %>
+    <div class="input-group">
+      <%= text_field_tag :search_by_name, params[:search_by_name],
+          class: "form-control",
+          placeholder: "Search for products by name..." %>
+      <%= submit_tag "Search",class: "btn btn-outline-secondary"%>
+    </div>
+  <% end %>
+</div>
+
 <div class="container">
   <div class="row">
     <% @products.each do |product| %>
@@ -14,25 +26,22 @@
             <p><strong>Stock:</strong> <%= product.stock_quantity %></p>
             <p><strong>Category:</strong> <%= product.category&.name %></p>
             <div class="d-flex justify-content-between">
-              <% if current_user&.manager?%>
-                  <%= link_to 'View', product_path(product), class: "btn btn-primary btn-sm" %>
-                  <%= link_to 'Edit', edit_product_path(product), class: "btn btn-warning btn-sm" %>
-                  <%= link_to 'Delete',product_path(product),
-                    data: {
-                        turbo_method: :delete,
-                        turbo_confirm: "Are you sure to delete ?"
-                    },
-                  class: "btn btn-danger btn-sm" %>
+              <% if current_user&.manager? %>
+                <%= link_to 'View', product_path(product), class: "btn btn-primary btn-sm" %>
+                <%= link_to 'Edit', edit_product_path(product), class: "btn btn-warning btn-sm" %>
+                <%= link_to 'Delete', product_path(product),
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete ?" },
+                      class: "btn btn-danger btn-sm" %>
               <% else %>
-                  <%= link_to 'View', product_path(product), class: "btn btn-outline-primary btn-sm w-100" %>
+                <%= link_to 'View', product_path(product), class: "btn btn-outline-primary btn-sm w-100" %>
               <% end %>
             </div>
-            <% unless current_user&.manager?%>
-                <div class="mt-2">
-                  <!-- Add to Cart Button -->
-                  <%= button_to 'Add to Cart', cart_items_path(product_id: product.id),
+            <% unless current_user&.manager? %>
+              <div class="mt-2">
+                <!-- Add to Cart Button -->
+                <%= button_to 'Add to Cart', cart_items_path(product_id: product.id),
                       method: :post, class: "btn btn-success btn-sm w-100" %>
-                </div>
+              </div>
             <% end %>
           </div>
         </div>
@@ -41,13 +50,12 @@
   </div>
 </div>
 
-<% if current_user&.manager?%>
-<div class="text-center mt-4">
-  <%= link_to 'New Product', new_product_path, class: "btn btn-success" %>
-</div>
+<% if current_user&.manager? %>
+  <div class="text-center mt-4">
+    <%= link_to 'New Product', new_product_path, class: "btn btn-success" %>
+  </div>
 <% end %>
-<%= link_to "Sign Out", destroy_user_session_path,
-      data:{
-        turbo_method: :delete
-      }
-%>
+
+<div class="text-center mt-4">
+  <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-danger" %>
+</div>

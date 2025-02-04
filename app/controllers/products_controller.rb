@@ -1,8 +1,11 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [ :edit, :update, :destroy ]
-
   def index
-    @products = Product.all
+    if params[:search_by_name].present?
+      @products = Product.where("name ILIKE ?", "%#{params[:search_by_name]}%")
+    else
+      @products = Product.all
+    end
   end
 
   def show
