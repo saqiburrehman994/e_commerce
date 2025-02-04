@@ -12,6 +12,6 @@ class User < ApplicationRecord
 
 
   def purchased?(product)
-      orders.joins(:order_items).exists?( order_items: { product_id: product.id})
+      orders.joins(:order_items).exists?(order_items: { product_id: product.id })
   end
 end

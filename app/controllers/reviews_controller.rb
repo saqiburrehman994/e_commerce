@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :find_product
-  before_action :enusure_purchased!, only: [:new,:create]
+  before_action :enusure_purchased!, only: [ :new, :create ]
 
   def new
     @review = @product.reviews.new
@@ -53,7 +53,6 @@ class ReviewsController < ApplicationController
   end
 
   def review_params
-    params.require(:review).permit(:rating,:comment)
+    params.require(:review).permit(:rating, :comment)
   end
-
 end

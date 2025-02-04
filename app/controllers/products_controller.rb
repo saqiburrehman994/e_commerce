@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
     if params[:min_price].present? && params[:max_price].present?
       min_price = params[:min_price].to_f
       max_price = params[:max_price].to_f
-      @products = @products.by_price_range(min_price,max_price)
+      @products = @products.by_price_range(min_price, max_price)
     end
     @products = @products.page(params[:page])
   end
