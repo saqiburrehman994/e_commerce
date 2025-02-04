@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
       max_price = params[:max_price].to_f
       @products = @products.by_price_range(min_price,max_price)
     end
+    @products = @products.page(params[:page])
   end
 
   def show

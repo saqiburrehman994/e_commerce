@@ -21,6 +21,7 @@ gem "sassc-rails"
 gem "devise"
 gem "dotenv-rails"
 gem "byebug"
+gem "kaminari"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
