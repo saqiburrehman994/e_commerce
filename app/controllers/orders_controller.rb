@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
     if can? :update_status, @order
         if @order.update(status: params[:status])
           flash[:notice] = "Order status updated successfully."
+          OrderMailer.with(order: @order).status_order_email.deliver_now
         else
           flash[:alert] = "Failed to update order status."
         end
@@ -66,6 +67,7 @@ class OrdersController < ApplicationController
     if payment_result[:success]
       cart.cart_items.destroy_all
       flash[:notice] = "Order placed successfully.#{payment_result[:message]}"
+      OrderMailer.with(order: order).new_order_email.deliver_now
       current_user.payment_detail.destroy
       redirect_to order_path(order)
     else
