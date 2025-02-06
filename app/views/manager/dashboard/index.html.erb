@@ -1,0 +1,35 @@
+<div class="container mt-5">
+
+  <div class="d-flex justify-content-between mb-4">
+    <%= link_to 'Manage Orders', manage_orders_path, class: "btn btn-outline-secondary btn-lg mx-2" %>
+    <%= link_to 'Manage Products', products_path, class: "btn btn-outline-secondary btn-lg mx-2" %>
+  </div>
+  <h1 class="text-center mb-4">📊 Manager Dashboard</h1>
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body text-center">
+      <h3 class="card-title">💰 Total Sales</h3>
+      <p class="display-5 text-success fw-bold"><%= number_to_currency(@total_sales) %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title">📦 Orders by Status</h3>
+          <%= pie_chart @orders_by_status, height: "300px" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title">🔥 Best-Selling Products</h3>
+          <%= column_chart @best_selling_products, height: "300px", colors: ["#FF5733"], class: "rounded" %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
