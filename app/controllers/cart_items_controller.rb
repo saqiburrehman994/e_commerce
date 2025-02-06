@@ -16,6 +16,7 @@ class CartItemsController < ApplicationController
     end
     redirect_to cart_path
   end
+
   def edit
     @cart_item = @cart.cart_items.find(params[:id])
   end

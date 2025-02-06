@@ -11,6 +11,7 @@ class Manager::DashboardController < ApplicationController
                                     .order("SUM(quantity) DESC")
                                     .sum(:quantity)
   end
+
   private
 
   def check_manager

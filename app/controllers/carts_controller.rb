@@ -6,6 +6,7 @@ class CartsController < ApplicationController
   end
 
   private
+
   def set_cart
     @cart = current_user.cart || current_user.create_cart
   end

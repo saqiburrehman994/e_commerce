@@ -27,6 +27,7 @@ class OrdersController < ApplicationController
     end
     redirect_to manage_orders_path
   end
+
   def show
     @order = current_user.orders.find(params[:id])
   end

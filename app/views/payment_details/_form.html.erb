@@ -1,4 +1,5 @@
 <%= form_with model: payment_detail do |f| %>
+
   <div class="mb-3">
     <%= f.label :card_number, "Card Number", class: "form-label fw-bold" %>
     <%= f.text_field :card_number, class: "form-control p-2 rounded-pill", placeholder: "1234 5678 9012 3456" %>
@@ -17,4 +18,5 @@
   <div class="text-center">
     <%= f.submit "Proceed to Payment", class: "btn btn-primary btn-lg w-100 rounded-pill"%>
   </div>
+
 <% end %>
