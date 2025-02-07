@@ -1,9 +1,9 @@
-<h2 class="text-center mb-4">Your Orders</h2>
+<h2 class='text-center mb-4'>Your Orders</h2>
 <% if @orders.any? %>
-  <div class="container">
-    <div class="table-responsive">
-      <table class="table table-bordered table-hover shadow-sm">
-        <thead class="table-dark text-center">
+  <div class='container'>
+    <div class='table-responsive'>
+      <table class='table table-bordered table-hover shadow-sm'>
+        <thead class='table-dark text-center'>
           <tr>
             <th>Order #</th>
             <th>Status</th>
@@ -13,20 +13,20 @@
         </thead>
         <tbody>
           <% @orders.each do |order| %>
-            <tr class="text-center align-middle">
+            <tr class='text-center align-middle'>
               <td><strong><%= order.id %></strong></td>
               <td>
                 <% if order.pending? %>
-                  <span class="badge bg-warning text-dark">Pending</span>
+                  <span class='badge bg-warning text-dark'>Pending</span>
                 <% elsif order.delivered?%>
-                  <span class="badge bg-success">Delivered</span>
+                  <span class='badge bg-success'>Delivered</span>
                 <% else %>
-                  <span class="badge bg-secondary"><%= order.status.capitalize %></span>
+                  <span class='badge bg-secondary'><%= order.status.capitalize %></span>
                 <% end %>
               </td>
-              <td class="text-success"><strong><%= number_to_currency(order.total) %></strong></td>
+              <td class='text-success'><strong><%= number_to_currency(order.total) %></strong></td>
               <td>
-                <%= link_to "View Details", order_path(order), class: "btn btn-primary btn-sm" %>
+                <%= link_to 'View Details', order_path(order), class: 'btn btn-primary btn-sm' %>
               </td>
             </tr>
           <% end %>
@@ -35,5 +35,5 @@
     </div>
   </div>
 <% else %>
-  <p class="text-center text-muted fs-5">You have no orders yet.</p>
+  <p class='text-center text-muted fs-5'>You have no orders yet.</p>
 <% end %>

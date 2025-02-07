@@ -65,14 +65,14 @@ class OrdersController < ApplicationController
             quantity: cart_item.quantity,
             price_at_purchase: price_at_purchase,
             created_at: Time.current,
-            updated_at: Time.current
+            updated_at: Time.current,
           }
         end
         OrderItem.insert_all(order_items)
 
         order.update!(total: order_total)
         cart_items.each do |cart_item|
-          updated = Product.where("id = ? AND stock_quantity >= ?", cart_item.product_id, cart_item.quantity).update_all("stock_quantity = stock_quantity - ?", cart_item.quantity)
+          updated = Product.where("id = ? AND stock_quantity >= ?", cart_item.product_id, cart_item.quantity).update_all("stock_quantity = stock_quantity - #{cart_item.quantity}")
           raise ActiveRecord::Rollback, "Stock update failed for #{cart_item.product.name}" if updated == 0
         end
 

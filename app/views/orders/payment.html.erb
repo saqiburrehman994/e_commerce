@@ -1,22 +1,22 @@
-<h2 class="text-center mb-4">Enter Payment Details</h2>
+<h2 class='text-center mb-4'>Enter Payment Details</h2>
 
 <%= form_with url: cart_path do |f| %>
-  <div class="mb-3">
-    <%= f.label :card_number, "Card Number", class: "form-label fw-bold" %>
-    <%= f.text_field :card_number, class: "form-control p-2 rounded-pill", placeholder: "1234 5678 9012 3456" %>
+  <div class='mb-3'>
+    <%= f.label :card_number, 'Card Number', class: 'form-label fw-bold' %>
+    <%= f.text_field :card_number, class: 'form-control p-2 rounded-pill', placeholder: '1234 5678 9012 3456' %>
   </div>
 
-  <div class="mb-3">
-    <%= f.label :expiry_date, "Expiration Date", class: "form-label fw-bold" %>
-    <%= f.text_field :expiry_date, class: "form-control p-2 rounded-pill", placeholder: "MM/YY" %>
+  <div class='mb-3'>
+    <%= f.label :expiry_date, 'Expiration Date', class: 'form-label fw-bold' %>
+    <%= f.text_field :expiry_date, class: 'form-control p-2 rounded-pill', placeholder: 'MM/YY' %>
   </div>
 
-  <div class="mb-3">
-    <%= f.label :cvv, "CVV", class: "form-label fw-bold" %>
-    <%= f.text_field :cvv, class: "form-control p-2 rounded-pill", placeholder: "123" %>
+  <div class='mb-3'>
+    <%= f.label :cvv, 'CVV', class: 'form-label fw-bold' %>
+    <%= f.text_field :cvv, class: 'form-control p-2 rounded-pill', placeholder: '123' %>
   </div>
 
-  <div class="text-center">
-    <%= link_to "Proceed to Payment",cart_path, class: "btn btn-primary btn-lg w-100 rounded-pill"%>
+  <div class='text-center'>
+    <%= link_to 'Proceed to Payment',cart_path, class: 'btn btn-primary btn-lg w-100 rounded-pill'%>
   </div>
 <% end %>

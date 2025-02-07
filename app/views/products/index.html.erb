@@ -1,67 +1,67 @@
-<h1 class="text-center mb-4">Products</h1>
+<h1 class='text-center mb-4'>Products</h1>
 
-<div class="container mb-4">
-  <%= form_tag products_path, method: :get, class: "row g-3 align-items-end" do %>
-    <div class="col-md-4">
-      <%= label_tag :search_by_name, "Product Name", class: "form-label" %>
+<div class='container mb-4'>
+  <%= form_tag products_path, method: :get, class: 'row g-3 align-items-end' do %>
+    <div class='col-md-4'>
+      <%= label_tag :search_by_name, 'Product Name', class: 'form-label' %>
       <%= text_field_tag :search_by_name, params[:search_by_name],
-          class: "form-control",
-          placeholder: "Search for products..." %>
+          class: 'form-control',
+          placeholder: 'Search for products...' %>
     </div>
 
-    <div class="col-md-3">
-      <%= label_tag :category_id, "Category", class: "form-label" %>
+    <div class='col-md-3'>
+      <%= label_tag :category_id, 'Category', class: 'form-label' %>
       <%= select_tag :category_id, options_from_collection_for_select(Category.all, :id, :name, params[:category_id]),
-          prompt: "All Categories", class: "form-select" %>
+          prompt: 'All Categories', class: 'form-select' %>
     </div>
 
-    <div class="col-md-2">
-      <%= label_tag :min_price, "Min Price", class: "form-label" %>
+    <div class='col-md-2'>
+      <%= label_tag :min_price, 'Min Price', class: 'form-label' %>
       <%= number_field_tag :min_price, params[:min_price],
-          class: "form-control", placeholder: "0.00", step: "0.01" %>
+          class: 'form-control', placeholder: '0.00', step: '0.01' %>
     </div>
 
-    <div class="col-md-2">
-      <%= label_tag :max_price, "Max Price", class: "form-label" %>
+    <div class='col-md-2'>
+      <%= label_tag :max_price, 'Max Price', class: 'form-label' %>
       <%= number_field_tag :max_price, params[:max_price],
-          class: "form-control", placeholder: "0.00", step: "0.01" %>
+          class: 'form-control', placeholder: '0.00', step: '0.01' %>
     </div>
 
-    <div class="col-md-1">
-      <%= submit_tag "Apply", class: "btn btn-outline-primary w-100" %>
+    <div class='col-md-1'>
+      <%= submit_tag 'Apply', class: 'btn btn-outline-primary w-100' %>
     </div>
   <% end %>
 </div>
 
-<div class="container">
-  <div class="row">
+<div class='container'>
+  <div class='row'>
     <% @products.each do |product| %>
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
+      <div class='col-md-4'>
+        <div class='card mb-4 shadow-sm'>
           <% if product.image.attached? %>
-            <%= image_tag product.image, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+            <%= image_tag product.image, class: 'card-img-top', style: 'height: 200px; object-fit: cover;' %>
           <% end %>
-          <div class="card-body">
-            <h5 class="card-title"><%= product.name %></h5>
-            <p class="card-text"><%= truncate(product.description, length: 100) %></p>
+          <div class='card-body'>
+            <h5 class='card-title'><%= product.name %></h5>
+            <p class='card-text'><%= truncate(product.description, length: 100) %></p>
             <p><strong>Price:</strong> <%= number_to_currency(product.price) %></p>
             <p><strong>Stock:</strong> <%= product.stock_quantity %></p>
             <p><strong>Category:</strong> <%= product.category&.name %></p>
-            <div class="d-flex justify-content-between">
+            <div class='d-flex justify-content-between'>
               <% if current_user&.manager? %>
-                <%= link_to 'View', product_path(product), class: "btn btn-primary btn-sm" %>
-                <%= link_to 'Edit', edit_product_path(product), class: "btn btn-warning btn-sm" %>
+                <%= link_to 'View', product_path(product), class: 'btn btn-primary btn-sm' %>
+                <%= link_to 'Edit', edit_product_path(product), class: 'btn btn-warning btn-sm' %>
                 <%= link_to 'Delete', product_path(product),
-                      data: { turbo_method: :delete, turbo_confirm: "Are you sure to delete ?" },
-                      class: "btn btn-danger btn-sm" %>
+                      data: { turbo_method: :delete, turbo_confirm: 'Are you sure to delete ?' },
+                      class: 'btn btn-danger btn-sm' %>
               <% else %>
-                <%= link_to 'View', product_path(product), class: "btn btn-outline-primary btn-sm w-100" %>
+                <%= link_to 'View', product_path(product), class: 'btn btn-outline-primary btn-sm w-100' %>
               <% end %>
             </div>
             <% unless current_user&.manager? %>
-              <div class="mt-2">
+              <div class='mt-2'>
                 <%= button_to 'Add to Cart', cart_items_path(product_id: product.id),
-                      method: :post, class: "btn btn-success btn-sm w-100" %>
+                      method: :post, class: 'btn btn-success btn-sm w-100' %>
               </div>
             <% end %>
           </div>
@@ -69,13 +69,13 @@
       </div>
     <% end %>
   </div>
-  <div class=" pagination d-flex justify-content-center align-items-center">
+  <div class=' pagination d-flex justify-content-center align-items-center'>
     <%= paginate @products%>
   </div>
 </div>
 
 <% if current_user&.manager? %>
-  <div class="text-center mt-4">
-    <%= link_to 'New Product', new_product_path, class: "btn btn-success" %>
+  <div class='text-center mt-4'>
+    <%= link_to 'New Product', new_product_path, class: 'btn btn-success' %>
   </div>
 <% end %>

@@ -5,7 +5,7 @@ class PaymentService
   end
 
   def process_payment
-    success = [ true ]*9 + [ false ]*1
+    success = [ true ] * 9 + [ false ] * 1
     success = success.sample
     if success
       @order.update(status: "processing", payment_status: "paid")
