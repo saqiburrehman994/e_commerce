@@ -1,4 +1,6 @@
 class ShippingDetailsController < ApplicationController
+  before_action :find_shipping_details, only: [:edit, :update]
+
   def new
     @shipping_detail = ShippingDetail.new(user: current_user)
   end
@@ -6,20 +8,18 @@ class ShippingDetailsController < ApplicationController
   def create
     @shipping_detail = current_user.build_shipping_detail(shipping_detail_params)
     if @shipping_detail.save
-      redirect_to cart_path, notice: "Shipping details added successfully.Now you can proceed to checkout."
+      redirect_to cart_path, notice: 'Shipping details added successfully.Now you can proceed to checkout.'
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
-    @shipping_detail = current_user.shipping_detail
   end
 
   def update
-    @shipping_detail = current_user.shipping_detail
     if @shipping_detail.update(shipping_detail_params)
-      redirect_to cart_path, notice: "Shipping details updated successfully.Now you can proceed to checkout."
+      redirect_to cart_path, notice: 'Shipping details updated successfully.Now you can proceed to checkout.'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -29,5 +29,9 @@ class ShippingDetailsController < ApplicationController
 
   def shipping_detail_params
     params.require(:shipping_detail).permit(:name, :address, :phone_number)
+  end
+
+  def find_shipping_details
+    @shipping_detail = current_user.shipping_detail
   end
 end

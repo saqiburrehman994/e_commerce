@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [ :edit, :update, :destroy ]
+  before_action :set_product, only: [:edit, :update, :destroy]
 
   def index
     @products = Product.all
@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
   def create
     @product = current_user.products.new(product_params)
     if @product.save
-       redirect_to products_path, notice: "Product was successfully created."
+      redirect_to products_path, notice: "Product was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
