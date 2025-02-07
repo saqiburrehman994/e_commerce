@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
             quantity: cart_item.quantity,
             price_at_purchase: price_at_purchase,
             created_at: Time.current,
-            updated_at: Time.current,
+            updated_at: Time.current
           }
         end
         OrderItem.insert_all(order_items)
