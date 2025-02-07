@@ -13,11 +13,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
   resources :products do
-    resources :reviews, except: [:index]
+    resources :reviews, except: [ :index ]
   end
-  resource :cart, only: [:show]
-  resources :cart_items, only: [:edit, :create, :update, :destroy]
-  resources :orders, only: [:index, :show] do
+  resource :cart, only: [ :show ]
+  resources :cart_items, only: [ :edit, :create, :update, :destroy ]
+  resources :orders, only: [ :index, :show ] do
     collection do
       post :checkout
       get :manage
@@ -26,8 +26,8 @@ Rails.application.routes.draw do
       patch :update_status
     end
   end
-  resources :shipping_details, only: [:new, :create, :update, :edit]
-  resources :payment_details, only: [:new, :create, :destroy]
+  resources :shipping_details, only: [ :new, :create, :update, :edit ]
+  resources :payment_details, only: [ :new, :create, :destroy ]
   namespace :manager do
     get "dashboard", to: "dashboard#index"
   end

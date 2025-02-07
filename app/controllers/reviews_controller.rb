@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :find_product
-  before_action :find_review, only: [:edit, :update, :destroy]
-  before_action :enusure_purchased!, only: [:new, :create]
+  before_action :find_review, only: [ :edit, :update, :destroy ]
+  before_action :enusure_purchased!, only: [ :new, :create ]
 
   def new
     @review = @product.reviews.new
@@ -15,7 +15,7 @@ class ReviewsController < ApplicationController
         format.turbo_stream
       end
     else
-      flash[:alert] = 'Failed to add review.'
+      flash[:alert] = "Failed to add review."
       redirect_to product_path(@product)
     end
   end
@@ -29,14 +29,14 @@ class ReviewsController < ApplicationController
         format.turbo_stream
       end
     else
-      flash[:alert] = 'Failed to update review.'
+      flash[:alert] = "Failed to update review."
       redirect_to product_path(@product)
     end
   end
 
   def destroy
     @review.destroy
-    redirect_to product_path(@product), notice: 'Review deleted successfully.'
+    redirect_to product_path(@product), notice: "Review deleted successfully."
   end
 
   private
@@ -47,7 +47,7 @@ class ReviewsController < ApplicationController
 
   def enusure_purchased!
     unless current_user.purchased?(@product)
-      redirect_to product_path(@product), alert: 'You can only add reviews if you have purchased this product.'
+      redirect_to product_path(@product), alert: "You can only add reviews if you have purchased this product."
     end
   end
 
