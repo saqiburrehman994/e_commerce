@@ -8,7 +8,7 @@ class ShippingDetailsController < ApplicationController
   def create
     @shipping_detail = current_user.build_shipping_detail(shipping_detail_params)
     if @shipping_detail.save
-      redirect_to cart_path, notice: "Shipping details added successfully.Now you can proceed to checkout."
+      redirect_to cart_path, notice: 'Shipping details added successfully.Now you can proceed to checkout.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -19,7 +19,7 @@ class ShippingDetailsController < ApplicationController
 
   def update
     if @shipping_detail.update(shipping_detail_params)
-      redirect_to cart_path, notice: "Shipping details updated successfully.Now you can proceed to checkout."
+      redirect_to cart_path, notice: 'Shipping details updated successfully.Now you can proceed to checkout.'
     else
       render :edit, status: :unprocessable_entity
     end

@@ -6,7 +6,7 @@ class PaymentDetailsController < ApplicationController
   def create
     @payment_detail = current_user.build_payment_detail(payment_detail_params)
     if @payment_detail.save
-      redirect_to cart_path, notice: "Payment details added successfully."
+      redirect_to cart_path, notice: 'Payment details added successfully.'
     else
       render :new, status: :unprocessable_entity
     end

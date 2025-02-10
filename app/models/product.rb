@@ -14,7 +14,7 @@ class Product < ApplicationRecord
   validates :stock_quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   scope :by_category, ->(category_name) {
-    joins(:category).where("categories.name ILIKE ?", "#{category_name}")
+    joins(:category).where('categories.name ILIKE ?', "#{category_name}")
   }
   scope :by_price_range, ->(min_price, max_price) {
     where(price: min_price..max_price)

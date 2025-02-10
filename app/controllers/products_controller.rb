@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     if params[:search_by_name].present?
-      @products = Product.where("name ILIKE ?", "%#{params[:search_by_name]}%")
+      @products = Product.where('name ILIKE ?', "%#{params[:search_by_name]}%")
     end
     if params[:category].present?
       @products = @products.by_category(params[:category])
@@ -33,7 +33,7 @@ class ProductsController < ApplicationController
   def create
     @product = current_user.products.new(product_params)
     if @product.save
-      redirect_to products_path, notice: "Product was successfully created."
+      redirect_to products_path, notice: 'Product was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -49,7 +49,7 @@ class ProductsController < ApplicationController
 
   def update
     if @product.update(product_params)
-      redirect_to products_path, notice: "Product was successfully updated."
+      redirect_to products_path, notice: 'Product was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
     end
