@@ -1,0 +1,18 @@
+<%= turbo_frame_tag dom_id(review) do %>
+  <div class='p-3 mb-3 border rounded shadow-sm bg-white'>
+    <div class='d-flex align-items-center mb-2 justify-content-between'>
+        <div>
+          <p><strong>Review By :</strong><%= review.user.email.split('@').first.capitalize %></p>
+        </div>
+        <div>
+        <% if review.user == current_user  && current_user.purchased?(product)%>
+            <%= link_to 'Edit', edit_product_review_path(product, review), class: 'btn btn-sm btn-outline-secondary' %>
+        <% end %>
+        </div>
+    </div>
+      <p class='mb-1'><strong>Rating:</strong>
+        <span class='text-warning'><%= '⭐' * (review.rating || 0) %></span>
+      </p>
+      <p><strong>Review:</strong> <%= review.comment %></p>
+  </div>
+<% end %>

@@ -1,0 +1,38 @@
+<%= render "shared/flash_errors", object: @product %>
+
+<%= form_with model: product, local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Enter product name" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control", placeholder: "Provide a detailed description of the product", rows: 3 %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :price, class: "form-label" %>
+    <%= form.number_field :price, class: "form-control", placeholder: "Enter product price" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :stock_quantity, class: "form-label" %>
+    <%= form.number_field :stock_quantity, class: "form-control", placeholder: "Enter stock quantity" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :image, class: "form-label" %>
+    <%= form.file_field :image, class: "form-control" %>
+    <small class="form-text text-muted">Upload an image for the product (optional).</small>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :category_id, "Category Name", class: "form-label" %>
+    <%= form.collection_select :category_id, Category.order(:name), :id, :name %>
+  </div>
+
+  <div class="text-center">
+    <%= form.submit class: "btn btn-success px-5 py-3 fw-bold rounded-pill shadow" %>
+  </div>
+<% end %>

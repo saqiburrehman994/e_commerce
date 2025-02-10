@@ -1,0 +1,7 @@
+<% if @product.reviews.any? %>
+  <% @product.reviews.each do |review| %>
+    <%= render partial:'review', locals: { product: @product, review: review}%>
+  <% end %>
+<% else %>
+  <p class='text-muted text-center'>No reviews yet. Be the first to review this product!</p>
+<% end %>

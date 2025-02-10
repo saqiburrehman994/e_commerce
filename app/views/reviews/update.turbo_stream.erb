@@ -1,0 +1,1 @@
+<%= turbo_stream.update 'review_#{@review.id}', partial: 'reviews/review', locals: { product: @product, review: @review } %>
