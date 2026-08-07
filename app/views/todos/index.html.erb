@@ -1,0 +1,31 @@
+<div class="container py-5" style="max-width: 600px;">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary fw-bold">My To Do List</h1>
+    <%= link_to "Back", root_path, class: "btn btn-outline-secondary" %>
+  </div>
+
+  <%= form_with model: @todo, url: todos_path, class: "d-flex gap-2 mb-4" do |f| %>
+    <%= f.text_field :title, class: "form-control", placeholder: "What do you need to do?" %>
+    <%= f.submit "Add", class: "btn btn-primary px-4" %>
+  <% end %>
+
+  <% if @todos.empty? %>
+    <p class="text-muted">You don't have any to dos yet.</p>
+  <% else %>
+    <ul class="list-group">
+      <% @todos.each do |todo| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="form-check">
+            <%= button_to todo_path(todo), method: :patch, class: "btn btn-link p-0 text-decoration-none text-start", form: { class: "d-inline" } do %>
+              <span class="<%= "text-decoration-line-through text-muted" if todo.completed? %>">
+                <%= todo.title %>
+              </span>
+            <% end %>
+          </div>
+          <%= button_to "Delete", todo_path(todo), method: :delete, class: "btn btn-sm btn-outline-danger",
+                data: { turbo_confirm: "Are you sure?" } %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
