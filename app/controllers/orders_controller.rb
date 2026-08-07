@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   def update_status
     @order = Order.find(params[:id])
     if can? :update_status, @order
-      if @order.update(status: params[:status])
+      if @order.update(status: params[:status], status_2: params[:status])
         flash[:notice] = 'Order status updated successfully.'
         OrderMailer.with(order: @order).status_order_email.deliver_now
       else
@@ -54,7 +54,7 @@ class OrdersController < ApplicationController
 
     begin
       ActiveRecord::Base.transaction do
-        order = Order.create!(user: current_user, status: 'pending', total: 0, payment_status: 'unpaid')
+        order = Order.create!(user: current_user, status: 'pending', status_2: 'pending', total: 0, payment_status: 'unpaid')
         order_total = 0
         order_items = cart_items.map do |cart_item|
           price_at_purchase = cart_item.product.price
