@@ -20,4 +20,16 @@ class TodoTest < ActiveSupport::TestCase
     todo = Todo.create!(title: "Buy milk", user: users(:one))
     assert_not todo.completed?
   end
+
+  test "search_by_title returns todos whose title contains the search text" do
+    assert_includes Todo.search_by_title("groceries"), todos(:one)
+  end
+
+  test "search_by_title is case-insensitive" do
+    assert_includes Todo.search_by_title("GROCERIES"), todos(:one)
+  end
+
+  test "search_by_title excludes todos that do not match" do
+    assert_not_includes Todo.search_by_title("groceries"), todos(:two)
+  end
 end
