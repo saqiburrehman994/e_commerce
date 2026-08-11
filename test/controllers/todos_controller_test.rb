@@ -23,6 +23,26 @@ class TodosControllerTest < ActionDispatch::IntegrationTest
     assert_no_match todos(:two).title, @response.body
   end
 
+  test "should filter todos by search title" do
+    get todos_url, params: { search: "groceries" }
+    assert_match @todo.title, @response.body
+  end
+
+  test "should filter todos by search title case-insensitively" do
+    get todos_url, params: { search: "GROCERIES" }
+    assert_match @todo.title, @response.body
+  end
+
+  test "should not include todos that do not match search" do
+    get todos_url, params: { search: "nonexistent" }
+    assert_no_match @todo.title, @response.body
+  end
+
+  test "should list all todos when search is blank" do
+    get todos_url, params: { search: "" }
+    assert_match @todo.title, @response.body
+  end
+
   test "should create todo" do
     assert_difference("@user.todos.count") do
       post todos_url, params: { todo: { title: "Buy milk" } }

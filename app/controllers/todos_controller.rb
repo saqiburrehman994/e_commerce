@@ -4,6 +4,7 @@ class TodosController < ApplicationController
 
   def index
     @todos = current_user.todos.order(created_at: :desc)
+    @todos = @todos.search_by_title(params[:search]) if params[:search].present?
     @todo = Todo.new
   end
 
